@@ -34,6 +34,7 @@ class Comment extends Component {
     super(props);
 
     let {
+      profile,
       votingCallback
     } = this.props;
 
@@ -47,8 +48,8 @@ class Comment extends Component {
       emojiPickerIsOpen: false,
       emojiFilter: '',
     };
-    this.upvote = (profileAddr) => { this.vote(1); votingCallback(1, profileAddr);};
-    this.downvote = (profileAddr) => { this.vote(-1); votingCallback(-1, profileAddr);}
+    this.upvote = () => { this.vote(1); votingCallback(1, profile.ethAddr);};
+    this.downvote = () => { this.vote(-1); votingCallback(-1, profile.ethAddr);}
   }
 
   async componentDidMount() {
@@ -382,8 +383,8 @@ class Comment extends Component {
                         voted={voted}
                         count={count}
                         getMyVote={this.getMyVote}
-                        upvote={this.upvote(profile.ethAddr)}
-                        downvote={this.downvote(profile.ethAddr)}
+                        upvote={this.upvote}
+                        downvote={this.downvote}
                       />
                     )}
 
@@ -443,7 +444,7 @@ class Comment extends Component {
               {
                 count === 0 && (
                   <>
-                    <button className="vote_btn" onClick={this.upvote(profile.ethAddr)}>
+                    <button className="vote_btn" onClick={this.upvote}>
                       <SVG
                         src={ArrowUp}
                         alt="Upvote"
@@ -451,7 +452,7 @@ class Comment extends Component {
                       />
                     </button>
 
-                    <button className="vote_btn vote_btn-middle" onClick={this.downvote(profile.ethAddr)}>
+                    <button className="vote_btn vote_btn-middle" onClick={this.downvote}>
                       <SVG
                         src={ArrowDown}
                         alt="Downvote"
