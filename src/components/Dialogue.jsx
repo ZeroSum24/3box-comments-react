@@ -44,6 +44,7 @@ class Dialogue extends Component {
       toggleReplyInput,
       showReply,
       noWeb3,
+      votingCallback
     } = this.props;
 
     const { showCommentCount } = this.state;
@@ -86,6 +87,7 @@ class Dialogue extends Component {
                   hasAuthed={hasAuthed}
                   children_comments={children_comments}
                   votes={votes}
+                  votingCallback={votingCallback}
                   reactions={reactions}
                   isNestedComment={isNestedComment}
                   showReply={showReply}
@@ -161,6 +163,7 @@ Dialogue.propTypes = {
   updateComments: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   toggleReplyInput: PropTypes.func.isRequired,
+  votingCallback: PropTypes.func
 };
 
 Dialogue.defaultProps = {
@@ -171,4 +174,5 @@ Dialogue.defaultProps = {
   currentUserAddr: null,
   useHovers: false,
   isNestedComment: false,
+  votingCallback: null
 };

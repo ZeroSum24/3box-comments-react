@@ -314,6 +314,7 @@ class App extends Component {
       loginFunction,
       members,
       ethereum,
+      votingCallback
     } = this.props;
 
     return (
@@ -367,6 +368,7 @@ class App extends Component {
           useHovers={useHovers}
           showReply={showReply}
           spaceName={spaceName}
+          votingCallback={votingCallback}
           noWeb3={noWeb3}
           handleLoadMore={this.handleLoadMore}
           updateComments={this.updateComments}
@@ -396,6 +398,7 @@ App.propTypes = {
   spaceName: PropTypes.string.isRequired,
   threadName: PropTypes.string.isRequired,
   adminEthAddr: PropTypes.string.isRequired,
+  votingCallback: PropTypes.func
 };
 
 App.defaultProps = {
@@ -410,4 +413,5 @@ App.defaultProps = {
   threadOpts: null,
   spaceOpts: null,
   loginFunction: null,
+  votingCallback: null
 };

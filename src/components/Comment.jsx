@@ -33,14 +33,18 @@ class Comment extends Component {
   constructor(props) {
     super(props);
 
+    const {
+      votingCallback
+    } = this.props;
+
     this.state = {
       loadingPost: false,
       showControlsOnMobile: false,
       emojiPickerIsOpen: false,
       emojiFilter: '',
     };
-    this.upvote = () => { this.vote(1); }
-    this.downvote = () => { this.vote(-1); }
+    this.upvote = (profileAddr) => { this.vote(1); votingCallback(1, profileAddr);};
+    this.downvote = (profileAddr) => { this.vote(-1); votingCallback(-1, profileAddr);}
   }
 
   async componentDidMount() {
@@ -374,8 +378,8 @@ class Comment extends Component {
                         voted={voted}
                         count={count}
                         getMyVote={this.getMyVote}
-                        upvote={this.upvote}
-                        downvote={this.downvote}
+                        upvote={this.upvote(profile.ethAddr)}
+                        downvote={this.downvote(profile.ethAddr)}
                       />
                     )}
 
@@ -435,7 +439,7 @@ class Comment extends Component {
               {
                 count === 0 && (
                   <>
-                    <button className="vote_btn" onClick={this.upvote}>
+                    <button className="vote_btn" onClick={this.upvote(profile.ethAddr)}>
                       <SVG
                         src={ArrowUp}
                         alt="Upvote"
@@ -443,7 +447,7 @@ class Comment extends Component {
                       />
                     </button>
 
-                    <button className="vote_btn vote_btn-middle" onClick={this.downvote}>
+                    <button className="vote_btn vote_btn-middle" onClick={this.downvote(profile.ethAddr)}>
                       <SVG
                         src={ArrowDown}
                         alt="Downvote"
@@ -508,6 +512,7 @@ Comment.propTypes = {
   profiles: PropTypes.object,
   votes: PropTypes.array,
   reactions: PropTypes.array,
+  votingCallback: PropTypes.func
 };
 
 Comment.defaultProps = {
@@ -515,4 +520,5 @@ Comment.defaultProps = {
   votes: [],
   reactions: [],
   isNestedComment: false,
+  votingCallback: null
 };
