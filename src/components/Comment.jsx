@@ -33,9 +33,13 @@ class Comment extends Component {
   constructor(props) {
     super(props);
 
-    const {
+    let {
       votingCallback
     } = this.props;
+
+    if (votingCallback === null) {
+      votingCallback = () => {}
+    }
 
     this.state = {
       loadingPost: false,
